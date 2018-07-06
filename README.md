@@ -1,6 +1,6 @@
 Night light Dimmer
 
-Simple night light controler to control one led strip only with one button.
+Simple night light controling logic to control one led strip only with one button.
 
 Advantages:
 - PWM controlled brightness in 255 step
