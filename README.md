@@ -7,5 +7,6 @@ Advantages:
 - One button to on / off and brightness control
 - Save the last used brightness value and start with this after turning on
 - Soft ramping up / down the brightness on turning on / off
+- 30 min Timer function when long pressed while turned off.
 
 Use this for free! ;)
