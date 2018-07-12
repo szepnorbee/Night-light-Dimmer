@@ -22,6 +22,27 @@ int alarmSec = 1800;  //30 min = 1800 sec
 int currentSec = 0;
 boolean alarmOn = false;
 
+void blink() {
+  int z = 9;
+  byte maxLum = 30;
+  for (int x=0;x<maxLum;x++) {
+    analogWrite(ledPin,x);
+    delay(z);
+  }
+  for (int x=maxLum;x>1;x--) {
+    analogWrite(ledPin,x);
+    delay(z);
+  }
+  for (int x=0;x<maxLum;x++) {
+    analogWrite(ledPin,x);
+    delay(z);
+  }
+  for (int x=maxLum;x>1;x--) {
+    analogWrite(ledPin,x);
+    delay(z);
+  }
+  
+}
 
 void setup() {
   Serial.begin(115200);
@@ -67,8 +88,14 @@ void loop() {
       rampReady = true;
     }
     // Shutting on / off after ramping done
-    if (light == false && rampReady == true) analogWrite(ledPin,0);
-    if (light == true && rampReady == true) analogWrite(ledPin,pwm);
+    if (light == false && rampReady == true) {
+      analogWrite(ledPin,0);
+      delay(15);
+    }
+    if (light == true && rampReady == true) {
+      analogWrite(ledPin,pwm);
+      delay(15);
+    }
     ////////////////////////////
     //// BUILTIN LED ///////////
     if (upward) pcbLedpwm+=3;
@@ -97,7 +124,10 @@ void loop() {
       else {
         pwmDirection = 0;
         light = false;
-        alarmOn = false;
+        if (alarmOn == true) {
+          alarmOn = false;
+          blink();
+        }
         currentSec = 0;
         rampReady = false;
       }
@@ -131,6 +161,7 @@ void loop() {
     alarmOn = true;
     light = true;
     rampReady = false;
+    blink();
   }
   if (currentSec >= alarmSec && alarmOn == true) {
     alarmOn = false;
